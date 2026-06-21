@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dost Analyzer Pro™</title>
+<style>
+  :root { --green:#00ff88; --bg:#050a06; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--green);font-family:'Courier New',Courier,monospace;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+ .wrap{width:100%;max-width:480px;border:1px solid #00ff8840;border-radius:16px;padding:28px;background:#0a1410cc;box-shadow:0 0 40px #00ff8820;position:relative;overflow:hidden}
+  h1{font-size:1.6rem;text-align:center;text-shadow:0 0 10px var(--green)}
+ .sub{ text-align:center; opacity:.7; margin:6px 0 22px; font-size:.85rem}
+  input{width:100%;background:#000;border:1px solid var(--green);color:var(--green);padding:14px;border-radius:10px;font-family:inherit;font-size:1rem;outline:none}
+  button{width:100%;margin-top:12px;background:var(--green);color:#000;border:none;padding:14px;border-radius:10px;font-weight:800;font-family:inherit;font-size:1rem;cursor:pointer}
+  button:active{transform:scale(.98)}
+ .term{background:#000;border-radius:10px;padding:16px;min-height:260px;font-size:.9rem;line-height:1.6;white-space:pre-wrap}
+ .bar-bg{background:#001a0f;height:10px;border-radius:6px;margin:4px 0 14px;overflow:hidden}
+ .bar{height:100%;background:var(--green);box-shadow:0 0 8px var(--green)}
+ .stat-label{font-size:.8rem;opacity:.9}
+ .result-name{color:#fff;font-size:1.3rem;margin-bottom:12px}
+ .verdict{text-align:center;font-size:1.25rem;margin:16px 0;font-weight:800;text-shadow:0 0 8px var(--green)}
+ .muted{opacity:.6;font-size:.75rem;text-align:center;margin-top:14px}
+ .hidden{display:none}
+ .tag{position:absolute;top:10px;right:12px;font-size:.65rem;opacity:.5}
+  a{color:var(--green)}
+ .share-box{background:#000;border:1px dashed #00ff8866;border-radius:10px;padding:12px;margin-top:12px;font-size:.8rem;word-break:break-all}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="tag">PRANK MODE</div>
+  <div id="screen-start">
+    <h1>DOST ANALYZER PRO™</h1>
+    <div class="sub">AI Friendship Hacking Tool - 100% Bakchodi</div>
+    <input id="nameInput" placeholder="Enter your name plz..." maxlength="20" />
+    <button id="scanBtn">SCAN KARO ▶</button>
+    <div class="muted">Ye sirf prank hai. Koi data save nahi hota.<br>GitHub Pages ready.</div>
+  </div>
+
+  <div id="screen-hack" class="hidden">
+    <div class="term" id="term"></div>
+  </div>
+
+  <div id="screen-result" class="hidden">
+    <div class="result-name">HACK REPORT - <span id="rName"></span></div>
+    <div id="stats"></div>
+    <div class="verdict">CONFIRMED: Pakka Bakchod Dost™</div>
+    <button id="againBtn">TU PAKDA GAYA! 😂 Prank tha</button>
+    <div class="share-box">
+      Dost ko prank karo:<br>
+      <span id="shareLink"></span><br><br>
+      Link copy karke WhatsApp par bhej de.?name= lagake auto-scan chalega.
+    </div>
+    <div class="muted">Made for timepass only</div>
+  </div>
+</div>
+
+<script>
+const termEl = document.getElementById('term');
+const lines = [
+  "[+] Connecting to dost database...",
+  "[+] IP Trace: 127.0.0.1 - Delhi, IN",
+  "[+] Fetching WhatsApp last seen... Online tha 3AM",
+  "[+] Maggi stock: CRITICAL",
+  "[+] Scanning brain cells...",
+  "BRAIN_CELLS_NOT_FOUND.exe",
+  "[+] UPI balance check... ₹4.20",
+  "[+] Hack complete. Roast ready."
+];
+
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+async function runHack(name){
+  termEl.textContent = `> target: ${name}\n> initiating friendship_hack.sh\n\n`;
+  for(const l of lines){
+    termEl.textContent += l + "\n";
+    termEl.scrollTop = termEl.scrollHeight;
+    await sleep(380 + Math.random()*300);
+  }
+  await sleep(500);
+  showResult(name);
+}
+
+function showResult(name){
+  document.getElementById('screen-hack').classList.add('hidden');
+  document.getElementById('screen-result').classList.remove('hidden');
+  document.getElementById('rName').textContent = name.toUpperCase();
+  const stats = [
+    ["Aalsipan", 99],
+    ["Paisa udhaar maangne ki kala", 100],
+    ["Maggi chor", 97],
+    ["Haram ka khane wala", 100],
+    ["Pen churane wala",],
+    ["Padhaai", 2],
+    ["Dost wafaadaari", 1000],
+  ];
+  document.getElementById('stats').innerHTML = stats.map(([l,v]) =>
+    `<div class="stat-label">${l} - ${v}%</div><div class="bar-bg"><div class="bar" style="width:${Math.min(v,100)}%"></div></div>`
+  ).join('');
+  const baseUrl = location.href.split('?')[0];
+  document.getElementById('shareLink').textContent = baseUrl + '?name=' + encodeURIComponent(name);
+}
+
+document.getElementById('scanBtn').onclick = () => {
+  const name = document.getElementById('nameInput').value.trim() || 'Anjaan Dost';
+  document.getElementById('screen-start').classList.add('hidden');
+  document.getElementById('screen-hack').classList.remove('hidden');
+  runHack(name);
+};
+document.getElementById('againBtn').onclick = () => {
+  document.getElementById('screen-result').classList.add('hidden');
+  document.getElementById('screen-start').classList.remove('hidden');
+};
+
+// Auto-start via?name=
+const params = new URLSearchParams(location.search);
+const autoName = params.get('name');
+if(autoName){
+  document.getElementById('nameInput').value = autoName;
+  setTimeout(()=>document.getElementById('scanBtn').click(), 900);
+}
+</script>
+</body>
+</html>
